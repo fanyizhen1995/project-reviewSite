@@ -13,6 +13,6 @@ class HomepageController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('film_list');
     }
 }
