@@ -4,4 +4,9 @@
 
 {% block body %}
     <h1>主页：显示电影列表</h1>
+    {% for candidature in candidatures %}
+    <div>
+        {{ candidature.introduction }}
+    </div>
+    {% endfor %}
 {% endblock %}

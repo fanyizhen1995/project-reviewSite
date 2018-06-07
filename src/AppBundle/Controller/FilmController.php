@@ -13,9 +13,12 @@ class FilmController extends Controller
      */
     public function showFilmAction()
     {
+        $em = $this->get('doctrine')->getManager();
+        $candidatures = $em->getRepository('AppBundle:Candidature')->findAll();
+
 
         return $this->render('film/show_film.html.twig', array(
-            // ...
+            'candidatures'  => $candidatures
         ));
     }
     /**

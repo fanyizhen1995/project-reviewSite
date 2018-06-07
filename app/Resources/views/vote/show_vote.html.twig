@@ -4,4 +4,11 @@
 
 {% block body %}
     <h1>显示投票列表</h1>
+    {% for vote in votes %}
+        <div style="background: #efefef">
+            <div>ID : {{ vote.id }}</div><br>
+            <div>Title : {{ vote.title }}</div><br>
+            <div>Description : {{ vote.description }}</div>
+        </div>
+    {% endfor %}
 {% endblock %}

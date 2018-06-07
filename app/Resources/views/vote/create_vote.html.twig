@@ -1,7 +1,13 @@
 {% extends "base.html.twig" %}
 
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
 {% block title %}AppBundle:create:vote{% endblock %}
 
 {% block body %}
     <h1>创建单个投票</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
 {% endblock %}
