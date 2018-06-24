@@ -24,10 +24,33 @@ class Candidature
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=40)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="introduction", type="string", length=255)
      */
     private $introduction;
 
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
     /**
      * Get id.

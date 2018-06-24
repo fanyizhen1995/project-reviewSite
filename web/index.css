@@ -1,0 +1,89 @@
+h1,h3,p,button{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.side-nav{
+    position: fixed;
+    top: 45%;
+    right:20px;
+    z-index: 1;
+}
+.side-nav ul.nav-side-nav{
+    text-align: center;
+    list-style: none;
+    margin:0;
+    padding-left: 0;
+}
+.side-nav ul.nav-side-nav>li{
+    display: block;
+    line-height: 1.45em;
+    margin:0;
+    padding: 8px 0;
+}
+.side-nav ul.nav-side-nav>li>a{
+    display:block;
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    background: #00CC00;
+}
+.onepage{
+    height:320px;
+}
+.onepage-bg{
+    height:300px;
+    width:100%;
+    position:absolute;
+    background-position:center center;
+    background-size:cover;
+}
+#onepagebg{
+    background-image: url("images/plexus-fantasy-abstract-technology-and-engineering-background-with-original-organic-motion_vtkhzhg_l__F0014.png") ;
+}
+.headh1content{
+    margin-top:80px;
+    line-height:75px;
+}
+.title-text{
+    margin-left:50px;
+}
+.headfontsize h1{
+    font-size:50pt;
+    color: #FFFFFF;
+}
+.headfontsize p{
+    color: #FFFFFF;
+}
+
+#myCarousel{
+}
+
+#edit-nom,#edit-prenom,#edit-mail,#edit-passe1,#edit-passe2{
+    display: block;
+    padding:12px 2px;
+    width:80%;
+    margin-left: 50px;
+    border-width:0 0 1px;
+    border-radius: 0;
+    border-style: solid;
+    border-color: rgba(0,0,0,.12);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0);
+    font-size: 10px;
+    background: transparent;
+    outline: none;
+}
+#search_input{
+    margin-top: 12px;
+    width:200px;
+    height:33px;
+}
+#btn-vote{
+    margin-left: 50px;
+    margin-top: 0px;
+    background-color: red;
+}
+#btn-compte{
+    margin-left: 500px;
+    margin-top: 5px;
+    line-height: 33px;
+    float:left;
+}

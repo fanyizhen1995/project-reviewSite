@@ -26,9 +26,11 @@ class FilmController extends Controller
      */
     public function showOneFilmAction($fid)
     {
+        $em = $this->get('doctrine')->getManager();
+        $film = $em->getRepository('AppBundle:Candidature')->findOneById($fid);
 
-        return $this->render('film/show_film.html.twig', array(
-            // ...
+        return $this->render('film/one_film.html.twig', array(
+            'film'  => $film,
         ));
     }
 

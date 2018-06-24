@@ -5,6 +5,7 @@
 {% block title %}AppBundle:create:vote{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1>创建单个投票</h1>
     {{ form_start(form) }}
     {{ form_widget(form) }}

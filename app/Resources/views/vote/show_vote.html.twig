@@ -3,12 +3,15 @@
 {% block title %}AppBundle:show:vote{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1>显示投票列表</h1>
     {% for vote in votes %}
-        <div style="background: #efefef">
-            <div>ID : {{ vote.id }}</div><br>
-            <div>Title : {{ vote.title }}</div><br>
-            <div>Description : {{ vote.description }}</div>
-        </div>
+        <a href="{{ path('one_vote',{'vid':vote.id}) }}">
+            <div style="background: #efefef">
+                <div>ID : {{ vote.id }}</div><br>
+                <div>Title : {{ vote.title }}</div><br>
+                <div>Description : {{ vote.description }}</div>
+            </div>
+        </a>
     {% endfor %}
 {% endblock %}

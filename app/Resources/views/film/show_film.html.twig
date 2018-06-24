@@ -3,10 +3,13 @@
 {% block title %}AppBundle:film:filmlist{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1>主页：显示电影列表</h1>
     {% for candidature in candidatures %}
     <div>
-        {{ candidature.introduction }}
+        <a href="{{ path('one_film',{'fid':candidature.id}) }}">
+            {{ candidature.introduction }}
+        </a>
     </div>
     {% endfor %}
 {% endblock %}

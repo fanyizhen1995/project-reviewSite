@@ -1,13 +1,130 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content ="width=device-width,initial-scale=1">
+        <title>{% block title %}Page d'acceuil{% endblock %}</title>
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('index.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('demo/css/application.css') }}">
+        <style type="text/css">
+            .bg {display: table;width: 100%;height: 50%;
+                padding: 45px 0;
+                text-align: center;
+                color: #fff;
+                background: url("{{ asset('bg-greydark.png') }}") repeat-x;
+                background-color: #000;
+                background-size: cover;}
+            .my-navbar {padding:20px 0;transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;}
+            .my-navbar a{background:transparent !important;color:#fff !important}
+            .my-navbar a:hover {color:#45bcf9 !important;background:transparent;outline:0}
+            .my-navbar a {transition: color 0.5s ease-in-out;}
+            .top-nav {padding:0;background:#000;}
+            button.navbar-toggle {background-color:#fbfbfb;}
+            button.navbar-toggle > span.icon-bar {background-color:#dedede}
+        </style>
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+            <nav class="navbar navbar-fixed-top my-navbar" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#"><img src="{{ asset('images/logo.png') }}"> </a>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#example-navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+                    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li style="margin-left: 50px"><a href="{{ path('film_list') }}">Film</a></li>
+                            <li style="margin-left: 50px"><a href="{{ path('create_vote') }}">CreateVote</a></li>
+                            <li style="margin-left: 50px"><a href="{{ path('vote_list') }}">voteList</a></li>
+                            <li style="margin-left: 50px"><a href="{{ path('my_vote_info') }}">myVoteList</a></li>
+
+
+                        </ul>
+                        <div class="search-bar" >
+                            <form action="/search" method="GET">
+                                <input type="text" name="search" id="search_input" autofocus="autofocus" class="query" style="margin-left: 700px">
+                                <input type="submit" name="soumettre" value="Search"class="btn btn-default btn-small"style="margin-bottom:0;margin-top:-1px">
+                            </form>
+                        </div>
+                        <div class="btn btn-primary btn-lg" id="btn-login"style="margin-left: 1250px;margin-top: -50px" onclick="window.location.href='{{ path('login') }}'">LOG IN</div>
+
+                    </div>
+                </div>
+            </nav>
+
+            <div class="bg"></div>
+
+            <!--首导航栏-->
+            <div class="onepage">
+                <div class="onepage-bg" id="onepagebg"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="title-text">
+                            <div class="col-md-12 headfontsize" >
+                                <h1 class="headh1content">
+                                    Vote Website<br>
+                                </h1>
+                                <p style="margin-top: 50px;line-height: 33px;">投票网站</p>
+                                <div class="btn-app-store" id="btn-compte"align="left" style="">
+                                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >
+                                        Créer votre compte
+                                    </button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="background-color: #afd9ee" >
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    </button>
+                                                    <h4 class="modal-title" id="myModalLabel" style=" text-align: center; background-color: #afd9ee">Créer votre compte</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ asset('inscription2.php') }}" method="POST">
+                                                        <label for="edit-nom">Nom : </label>
+                                                        <input type="text" id="edit-nom" name="nom" value="" minlength=2 maxlength=100 required><br>
+                                                        <label for="edit-prenom">Prénom : </label>
+                                                        <input type="text" id="edit-prenom" name="prenom" value="" minlength=2 maxlength=100 required><br>
+                                                        <label for="edit-mail">Adresse Mail : </label>
+                                                        <input type="text" id="edit-mail" name="mail" value="" maxlength=250 required><br>
+                                                        <label for="edit-passe1">Mot de passe : </label>
+                                                        <input type="password" id="edit-passe1" name="passe1" value="" minlength=8 required><br>
+                                                        <label for="edit-passe2">Confirmer mot de passe : </label>
+                                                        <input type="password" id="edit-passe2" name="passe2" value="" minlength=8 required><br>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="submit" name="soumettre" value="Valider"class="btn btn-primary">&nbsp;
+                                                    <input type="reset" value="Annuler" class="btn btn-primary"> &nbsp;<br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn btn-primary btn-lg" id="btn-vote" onclick="window.location.href='{{ path('create_vote') }}'">Creer votre vote !</div>
+                                </div>
+                                <div class="btn-app-store" align="right" style=";float:left;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endblock %}
+        {% block javascripts %}
+            <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+            <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+            <script>
+                $(window).scroll(function () {
+                    if ($(".navbar").offset().top > 50) {$(".navbar-fixed-top").addClass("top-nav");
+                    }else {$(".navbar-fixed-top").removeClass("top-nav");}
+                })</script>
+        {% endblock %}
     </body>
 </html>

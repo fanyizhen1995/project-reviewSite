@@ -36,6 +36,7 @@ class Vote
     private $description;
 
 
+
     /**
      * Get id.
      *

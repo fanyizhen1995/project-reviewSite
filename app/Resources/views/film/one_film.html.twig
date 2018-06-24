@@ -3,5 +3,8 @@
 {% block title %}AppBundle:film:oneFilm{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1>显示单个电影的具体信息</h1>
+    {{ film.title }}
+    {{ film.introduction }}
 {% endblock %}

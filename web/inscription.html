@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Formulaire de saisie d'un nouvel emprunteur</title>
+  </head>
+  <body>
+
+    <!-- *************************** -->
+    <!--  Affichage du Formulaire    -->
+
+    <form action="inscription2.php" method="POST">  <!-- ajouter novalidate pour éviter la validation du formulaire -->
+
+      <label for="edit-nom">Nom : </label>
+      <input type="text" id="edit-nom" name="nom" value="" minlength=2 maxlength=100 required><br>&nbsp;<br>
+
+      <label for="edit-prenom">Prénom : </label>
+      <input type="text" id="edit-prenom" name="prenom" value="" minlength=2 maxlength=100 required><br> &nbsp;<br>
+
+      <label for="edit-mail">Adresse Mail : </label>
+      <input type="text" id="edit-mail" name="mail" value="" maxlength=250 required><br> &nbsp;<br>
+
+      <label for="edit-pseudo">Pseudo : </label>
+      <input type="text" id="edit-pseudo" name="pseudo" value="" minlength=6 maxlength=10 required><br> &nbsp;<br>
+
+      <label for="edit-passe1">Mot de passe : </label>
+      <input type="password" id="edit-passe1" name="passe1" value="" minlength=8 required><br> &nbsp;<br>
+
+      <label for="edit-passe2">Confirmer mot de passe : </label>
+      <input type="password" id="edit-passe2" name="passe2" value="" minlength=8 required><br> &nbsp;<br>
+
+      <label for="edit-newsletter">Abonnement à la newsletter : </label>
+      <input type="checkbox" id="edit-newsletter" name="newsletter" value=""><br>&nbsp;<br>
+
+      <label for="edit-commentaire">Commentaire : </label>
+      <textarea id="edit-commentaire" name="commentaire" placeholder="Laissez un commentaire" value="" size="60"></textarea><br>&nbsp;<br>
+
+      <input type="submit" name="soumettre" value="Valider">&nbsp;<input type="reset" value="Annuler"> &nbsp;<br>
+    </form>
+    <br><a href="index.php">Retour à l'accueil</a>
+  </body>
+</html>
