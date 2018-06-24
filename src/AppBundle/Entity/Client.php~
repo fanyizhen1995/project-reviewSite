@@ -53,7 +53,7 @@ class Client implements UserInterface, \serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="mot_de_passe", type="string", length=255)
+     * @ORM\Column(name="mot_de_passe", type="string", length=40)
      */
     private $password;
 
@@ -203,32 +203,4 @@ class Client implements UserInterface, \serializable
         return true;
     }
 
-
-    /**
-     * Set username.
-     *
-     * @param string $username
-     *
-     * @return Client
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Set password.
-     *
-     * @param string $password
-     *
-     * @return Client
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
 }

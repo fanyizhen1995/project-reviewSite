@@ -13,12 +13,20 @@ class FilmController extends Controller
      */
     public function showFilmAction()
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == 'anon.') {
+            $userPseudo = "visitor";
+        } else {
+            $userPseudo = $user->getPseudo();
+        }
+
         $em = $this->get('doctrine')->getManager();
         $candidatures = $em->getRepository('AppBundle:Candidature')->findAll();
 
 
         return $this->render('film/show_film.html.twig', array(
-            'candidatures'  => $candidatures
+            'candidatures'  => $candidatures,
+            'username'      => $userPseudo,
         ));
     }
     /**
@@ -26,11 +34,19 @@ class FilmController extends Controller
      */
     public function showOneFilmAction($fid)
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == 'anon.') {
+            $userPseudo = "visitor";
+        } else {
+            $userPseudo = $user->getPseudo();
+        }
+
         $em = $this->get('doctrine')->getManager();
         $film = $em->getRepository('AppBundle:Candidature')->findOneById($fid);
 
         return $this->render('film/one_film.html.twig', array(
             'film'  => $film,
+            'username'  => $userPseudo
         ));
     }
 

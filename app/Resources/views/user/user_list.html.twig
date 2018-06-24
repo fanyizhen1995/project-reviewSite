@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}AppBundle:user:userlist{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% for client in clients %}
+        <a href="{{ path('one_user_info',{'uid':client.id}) }}">
+            <div>
+                <h1>User : {{ client.pseudo }}</h1>
+            </div>
+        </a>
+
+
+    {% endfor %}
+{% endblock %}

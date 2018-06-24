@@ -3,5 +3,9 @@
 {% block title %}AppBundle:user:register{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1>用户注册</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 {% endblock %}

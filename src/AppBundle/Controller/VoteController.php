@@ -18,6 +18,14 @@ class VoteController extends Controller
      */
     public function createVoteAction(Request $request)
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == 'anon.') {
+            $userPseudo = "visitor";
+            return $this->redirectToRoute('login');
+        } else {
+            $userPseudo = $user->getPseudo();
+        }
+
         $vote = new Vote();
         $form = $this->createForm(VoteCreateType::class, $vote);
         $form->handleRequest($request);
@@ -42,7 +50,9 @@ class VoteController extends Controller
 
 
         return $this->render('vote/create_vote.html.twig', array(
-            'form'  => $form->createView()
+            'form'  => $form->createView(),
+            'username'  => $userPseudo
+
         ));
     }
 
@@ -51,10 +61,18 @@ class VoteController extends Controller
      */
     public function showVoteAction()
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == 'anon.') {
+            $userPseudo = "visitor";
+        } else {
+            $userPseudo = $user->getPseudo();
+        }
+
         $em = $this->get('doctrine')->getManager();
         $votes = $em->getRepository('AppBundle:Vote')->findAll();
         return $this->render('vote/show_vote.html.twig', array(
-            'votes'     => $votes
+            'votes'     => $votes,
+            'username'  => $userPseudo
         ));
     }
 
@@ -63,6 +81,14 @@ class VoteController extends Controller
      */
     public function showOneVoteAction($vid, Request $request)
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == 'anon.') {
+            $userPseudo = "visitor";
+            return $this->redirectToRoute('login');
+        } else {
+            $userPseudo = $user->getPseudo();
+        }
+
         $em = $this->get('doctrine')->getManager();
         $vote = $em->getRepository('AppBundle:Vote')->findOneById($vid);
         $voteCandidatures = $em->getRepository('AppBundle:VoteCandidature')->findByVote($vote);
@@ -92,7 +118,8 @@ class VoteController extends Controller
 
         return $this->render('vote/one_vote.html.twig', array(
             'vote'  => $vote,
-            'candidatures'  => $candidatures
+            'candidatures'  => $candidatures,
+            'username'  => $userPseudo
         ));
     }
 
@@ -101,9 +128,16 @@ class VoteController extends Controller
      */
     public function showMyVoteAction()
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == 'anon.') {
+            $userPseudo = "visitor";
+            return $this->redirectToRoute('login');
+        } else {
+            $userPseudo = $user->getPseudo();
+        }
 
         return $this->render('vote/my_vote_info.html.twig', array(
-            // ...
+            'username'  => $userPseudo
         ));
     }
 

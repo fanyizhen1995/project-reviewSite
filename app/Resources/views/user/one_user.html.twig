@@ -3,5 +3,11 @@
 {% block title %}AppBundle:user:userProfile{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1>用户信息</h1>
+    <h1> 用户名 ：{{ client.pseudo }}</h1>
+    {% if client.pseudo == username %}
+        <h1>真名 ：{{ client.prenom }} {{ client.nom }}</h1>
+        <h1>邮件地址：{{ client.username }}</h1>
+    {% endif %}
 {% endblock %}

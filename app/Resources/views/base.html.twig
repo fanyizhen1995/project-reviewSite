@@ -41,9 +41,13 @@
                     <div class="collapse navbar-collapse" id="example-navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li style="margin-left: 50px"><a href="{{ path('film_list') }}">Film</a></li>
-                            <li style="margin-left: 50px"><a href="{{ path('create_vote') }}">CreateVote</a></li>
+                            {% if username == 'visitor' %}
+                                <li style="margin-left: 50px"><a href="{{ path('create_vote') }}">CreateVote</a></li>
+                            {% endif %}
                             <li style="margin-left: 50px"><a href="{{ path('vote_list') }}">voteList</a></li>
                             <li style="margin-left: 50px"><a href="{{ path('my_vote_info') }}">myVoteList</a></li>
+                            <li style="margin-left: 50px"><a href="{{ path('user_list') }}">User List</a></li>
+                            <li style="margin-left: 50px"><a href="{{ path('logout') }}">Logout</a></li>
 
 
                         </ul>
@@ -53,8 +57,9 @@
                                 <input type="submit" name="soumettre" value="Search"class="btn btn-default btn-small"style="margin-bottom:0;margin-top:-1px">
                             </form>
                         </div>
-                        <div class="btn btn-primary btn-lg" id="btn-login"style="margin-left: 1250px;margin-top: -50px" onclick="window.location.href='{{ path('login') }}'">LOG IN</div>
-
+                        {% if username == 'visitor' %}
+                            <div class="btn btn-primary btn-lg" id="btn-login"style="margin-left: 1250px;margin-top: -50px" onclick="window.location.href='{{ path('login') }}'">LOG IN</div>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -71,41 +76,17 @@
                                 <h1 class="headh1content">
                                     Vote Website<br>
                                 </h1>
+                                <h3>Welcome {{ username }}</h3>
                                 <p style="margin-top: 50px;line-height: 33px;">投票网站</p>
                                 <div class="btn-app-store" id="btn-compte"align="left" style="">
-                                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >
-                                        Créer votre compte
-                                    </button>
-                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header" style="background-color: #afd9ee" >
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                    </button>
-                                                    <h4 class="modal-title" id="myModalLabel" style=" text-align: center; background-color: #afd9ee">Créer votre compte</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ asset('inscription2.php') }}" method="POST">
-                                                        <label for="edit-nom">Nom : </label>
-                                                        <input type="text" id="edit-nom" name="nom" value="" minlength=2 maxlength=100 required><br>
-                                                        <label for="edit-prenom">Prénom : </label>
-                                                        <input type="text" id="edit-prenom" name="prenom" value="" minlength=2 maxlength=100 required><br>
-                                                        <label for="edit-mail">Adresse Mail : </label>
-                                                        <input type="text" id="edit-mail" name="mail" value="" maxlength=250 required><br>
-                                                        <label for="edit-passe1">Mot de passe : </label>
-                                                        <input type="password" id="edit-passe1" name="passe1" value="" minlength=8 required><br>
-                                                        <label for="edit-passe2">Confirmer mot de passe : </label>
-                                                        <input type="password" id="edit-passe2" name="passe2" value="" minlength=8 required><br>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <input type="submit" name="soumettre" value="Valider"class="btn btn-primary">&nbsp;
-                                                    <input type="reset" value="Annuler" class="btn btn-primary"> &nbsp;<br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="btn btn-primary btn-lg" id="btn-vote" onclick="window.location.href='{{ path('create_vote') }}'">Creer votre vote !</div>
+                                    {% if username == 'visitor' %}
+                                        <button class="btn btn-primary btn-lg" onclick="window.location.href='{{ path('register') }}'">
+                                            Créer votre compte
+                                        </button>
+                                    {% endif %}
+                                    {% if username != 'visitor' %}
+                                        <div class="btn btn-primary btn-lg" id="btn-vote" onclick="window.location.href='{{ path('create_vote') }}'">Creer votre vote !</div>
+                                    {% endif %}
                                 </div>
                                 <div class="btn-app-store" align="right" style=";float:left;">
                                 </div>
