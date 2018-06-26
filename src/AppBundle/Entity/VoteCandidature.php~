@@ -1,0 +1,134 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * VoteCandidature
+ *
+ * @ORM\Table(name="vote_candidature")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\VoteCandidatureRepository")
+ */
+class VoteCandidature
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Vote")
+     * @ORM\JoinColumn(name="vote", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $vote;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Candidature")
+     * @ORM\JoinColumn(name="candidature", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $candidature;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="noteGlobal", type="integer")
+     */
+    private $noteGlobal;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="noteNumber", type="integer")
+     */
+    private $noteNumber;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="noteAvg", type="float")
+     */
+    private $noteAvg;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="noteNb5", type="integer")
+     */
+    private $noteNb5;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="noteNb4", type="integer")
+     */
+    private $noteNb4;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="noteNb3", type="integer")
+     */
+    private $noteNb3;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="noteNb2", type="integer")
+     */
+    private $noteNb2;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="noteNb1", type="integer")
+     */
+    private $noteNb1;
+
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * GETTER
+     */
+    public function getVote()
+    {
+        return $this->vote;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCandidature()
+    {
+        return $this->candidature;
+    }
+
+    /**
+     * @param mixed $candidature
+     */
+    public function setCandidature($candidature)
+    {
+        $this->candidature = $candidature;
+    }
+
+    /**
+     * @param mixed $vote
+     */
+    public function setVote($vote)
+    {
+        $this->vote = $vote;
+    }
+}

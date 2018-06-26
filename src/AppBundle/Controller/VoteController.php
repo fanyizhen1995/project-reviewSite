@@ -44,7 +44,18 @@ class VoteController extends Controller
                 $filmVote[$key] = new VoteCandidature();
                 $filmVote[$key]->setVote($vote);
                 $filmVote[$key]->setCandidature($film);
+                $filmVote[$key]->setNoteGlobal(0);
+                $filmVote[$key]->setNoteNumber(0);
+                $filmVote[$key]->setNoteAvg(0);
+                $filmVote[$key]->setNoteNb1(0);
+                $filmVote[$key]->setNoteNb2(0);
+                $filmVote[$key]->setNoteNb3(0);
+                $filmVote[$key]->setNoteNb4(0);
+                $filmVote[$key]->setNoteNb5(0);
+
                 $em->persist($filmVote[$key]);
+
+
             }
             $ClientVote = new ClientVote();
             $ClientVote->setClient($user);
@@ -155,6 +166,44 @@ class VoteController extends Controller
                         case 5 :
                             $note1 = $candidatureNote->getNoteNb5();
                             $candidatureNote->setNoteNb5($note1+1);
+                            break;
+
+                    }
+
+                    $voteCandidature = $em->getRepository('AppBundle:VoteCandidature')->findOneBy(
+                        array(
+                            'vote'          => $vote,
+                            'candidature'   => $candidature,
+                        )
+                    );
+
+                    $voteNoteNb = $voteCandidature->getNoteNumber();
+                    $voteNoteGlobal = $voteCandidature->getNoteGlobal();
+
+                    $voteCandidature->setNoteGlobal($voteNoteGlobal+$noteFilm[$key]);
+                    $voteCandidature->setNoteNumber($voteNoteNb+1);
+                    $voteCandidature->setNoteAvg(($voteNoteGlobal+$noteFilm[$key])/($voteNoteNb+1));
+
+                    switch ($noteFilm[$key]) {
+                        case 1 :
+                            $note1 = $voteCandidature->getNoteNb1();
+                            $voteCandidature->setNoteNb1($note1+1);
+                            break;
+                        case 2 :
+                            $note1 = $voteCandidature->getNoteNb2();
+                            $voteCandidature->setNoteNb2($note1+1);
+                            break;
+                        case 3 :
+                            $note1 = $voteCandidature->getNoteNb3();
+                            $voteCandidature->setNoteNb3($note1+1);
+                            break;
+                        case 4 :
+                            $note1 = $voteCandidature->getNoteNb4();
+                            $voteCandidature->setNoteNb4($note1+1);
+                            break;
+                        case 5 :
+                            $note1 = $voteCandidature->getNoteNb5();
+                            $voteCandidature->setNoteNb5($note1+1);
                             break;
 
                     }
