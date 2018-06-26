@@ -44,7 +44,15 @@ class FilmController extends Controller
         $em = $this->get('doctrine')->getManager();
         $film = $em->getRepository('AppBundle:Candidature')->findOneById($fid);
 
+        $images = $em->getRepository('AppBundle:Image')->findBy(
+            array(
+                'isPoster'      => false,
+                'candidature'   => $film
+            )
+        );
+
         return $this->render('film/one_film.html.twig', array(
+            'images'    =>  $images,
             'film'  => $film,
             'username'  => $userPseudo
         ));

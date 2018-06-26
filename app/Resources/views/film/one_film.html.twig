@@ -7,4 +7,13 @@
     <h1>显示单个电影的具体信息</h1>
     {{ film.title }}
     {{ film.introduction }}
+
+
+    {% if images is not null %}
+        {% for image in images %}
+            <div>
+                <img src="{{ asset(image.url) }}">
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

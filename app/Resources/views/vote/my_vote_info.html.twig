@@ -4,5 +4,19 @@
 
 {% block body %}
     {{ parent() }}
-    <h1>显示我参与的投票</h1>
+    <h1>显示可以查看结果的投票列表（参与过的）</h1>
+    {% if votes is null %}
+        <h1>你还没有参与过投票，请先投票</h1>
+    {% endif %}
+    {% if votes is not null %}
+        {% for vote in votes %}
+            <a href="{{ path('one_my_vote',{'vid':vote.id}) }}">
+                <div style="background: #efefef">
+                    <div>ID : {{ vote.id }}</div><br>
+                    <div>Title : {{ vote.title }}</div><br>
+                    <div>Description : {{ vote.description }}</div>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ClientVote;
 use AppBundle\Entity\Note;
 use AppBundle\Entity\VoteCandidature;
 use AppBundle\Form\Type\VoteCreateType;
@@ -33,6 +34,9 @@ class VoteController extends Controller
         $em = $this->get('doctrine')->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $dtz = new \DateTimeZone("Europe/Paris");
+            $now = new \DateTime(date("Y-m-d"), $dtz);
+            $now->format("Y-m-d");
             $vote = $form->getData();
             $em->persist($vote);
             $films = $form->get('introduction')->getData();
@@ -42,6 +46,13 @@ class VoteController extends Controller
                 $filmVote[$key]->setCandidature($film);
                 $em->persist($filmVote[$key]);
             }
+            $ClientVote = new ClientVote();
+            $ClientVote->setClient($user);
+            $ClientVote->setIsCreator(true);
+            $ClientVote->setIsParticipant(false);
+            $ClientVote->setVote($vote);
+            $ClientVote->setCreationDate($now);
+            $em->persist($ClientVote);
             $em->flush();
             return $this->redirectToRoute('vote_list');
 
@@ -95,25 +106,84 @@ class VoteController extends Controller
         foreach ($voteCandidatures as $key => $voteCandidature) {
             $candidatures[$key] = $voteCandidature->getCandidature();
         }
+        $isParticipantYet = $em->getRepository('AppBundle:ClientVote')
+            ->findOneBy(
+                array(
+                    'client'    => $user,
+                    'isParticipant' => true,
+                )
+            );
+        if ($isParticipantYet == null) {
 
-            if (isset($_POST['submitNote']) ) {
-                echo "333333333333333";
-                /*$noteFilm = $_POST["select"];
+            if (isset($_POST['submitNote'])) {
+                $dtz = new \DateTimeZone("Europe/Paris");
+                $now = new \DateTime(date("Y-m-d"), $dtz);
+                $now->format("Y-m-d");
+                $noteFilm = $_POST["select"];
                 foreach ($candidatures as $key => $candidature) {
                     $note[$key] = new Note();
                     $note[$key]->setVote($vote);
                     $note[$key]->setCandidature($candidature);
                     $note[$key]->setNote($noteFilm[$key]);
+                    $note[$key]->setClient($user);
                     $em->persist($note[$key]);
+
+                    $candidatureNote = $em->getRepository('AppBundle:CandidatureNote')->findOneByCandidature($candidature);
+                    $noteNb = $candidatureNote->getNoteNumber();
+                    $noteGlobal = $candidatureNote->getNoteGlobal();
+
+                    $candidatureNote->setNoteGlobal($noteGlobal+$noteFilm[$key]);
+                    $candidatureNote->setNoteNumber($noteNb+1);
+                    $candidatureNote->setNoteAvg(($noteGlobal+$noteFilm[$key])/($noteNb+1));
+                    switch ($noteFilm[$key]) {
+                        case 1 :
+                            $note1 = $candidatureNote->getNoteNb1();
+                            $candidatureNote->setNoteNb1($note1+1);
+                            break;
+                        case 2 :
+                            $note1 = $candidatureNote->getNoteNb2();
+                            $candidatureNote->setNoteNb2($note1+1);
+                            break;
+                        case 3 :
+                            $note1 = $candidatureNote->getNoteNb3();
+                            $candidatureNote->setNoteNb3($note1+1);
+                            break;
+                        case 4 :
+                            $note1 = $candidatureNote->getNoteNb4();
+                            $candidatureNote->setNoteNb4($note1+1);
+                            break;
+                        case 5 :
+                            $note1 = $candidatureNote->getNoteNb5();
+                            $candidatureNote->setNoteNb5($note1+1);
+                            break;
+
+                    }
+                }
+                $isCreator = $em->getRepository('AppBundle:ClientVote')
+                    ->findOneBy(
+                        array(
+                            'client' => $user,
+                            'isCreator' => true,
+                        )
+                    );
+                if ($isCreator == null) {
+                    $ClientVote = new ClientVote();
+                    $ClientVote->setClient($user);
+                    $ClientVote->setIsCreator(false);
+                    $ClientVote->setIsParticipant(true);
+                    $ClientVote->setVote($vote);
+                    $ClientVote->setCreationDate($now);
+                    $em->persist($ClientVote);
+                } else {
+                    $isCreator->setIsParticipant(true);
                 }
                 $em->flush();
 
-                return $this->render('vote/show_vote.html.twig', array(
-                    'vote' => $vote,
-                ));*/
-            } else {
-                echo "asdfsdfgfsdg";
+                return $this->redirectToRoute('vote_list');
             }
+        } else {
+            return $this->redirectToRoute('one_my_vote',array('vid' => $vid));
+        }
 
 
         return $this->render('vote/one_vote.html.twig', array(
@@ -135,8 +205,36 @@ class VoteController extends Controller
         } else {
             $userPseudo = $user->getPseudo();
         }
+        $em = $this->get('doctrine')->getManager();
+        $votes = $em->getRepository('AppBundle:ClientVote')->findByClient($user);
+
+        if ($votes != null) {
+            foreach ($votes as $key => $vote) {
+                $exactVotes[$key] = $vote->getVote();
+            }
+        }
 
         return $this->render('vote/my_vote_info.html.twig', array(
+            'username'  => $userPseudo,
+            'votes'     => $exactVotes,
+
+        ));
+    }
+
+    /**
+     * @Route("/myVoteList/{vid}", name="one_my_vote")
+     */
+    public function showOneMyVoteAction()
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($user == 'anon.') {
+            $userPseudo = "visitor";
+            return $this->redirectToRoute('login');
+        } else {
+            $userPseudo = $user->getPseudo();
+        }
+
+        return $this->render('vote/one_my_vote.html.twig', array(
             'username'  => $userPseudo
         ));
     }

@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block title %}AppBundle:create:candidature{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h1>创建电影</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+{% endblock %}

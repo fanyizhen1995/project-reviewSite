@@ -8,6 +8,7 @@
     {% for candidature in candidatures %}
     <div>
         <a href="{{ path('one_film',{'fid':candidature.id}) }}">
+            <img src="{{ asset('uploads/film_images/')}}{{ candidature.title }}/{{ candidature.title }}_Poster.jpg">
             {{ candidature.introduction }}
         </a>
     </div>
