@@ -6,9 +6,15 @@
 
 {% block body %}
     {{ parent() }}
-    <h1>创建单个投票</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <div class="container">
+        <h1>创建单个投票</h1>
+        <div class="container" >
+            <div class="col-lg-6 col-lg-offset-3 text-center" style="font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; font-weight:400;">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

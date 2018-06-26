@@ -4,10 +4,30 @@
 
 {% block body %}
     {{ parent() }}
-    <h1>用户信息</h1>
-    <h1> 用户名 ：{{ client.pseudo }}</h1>
-    {% if client.pseudo == username %}
-        <h1>真名 ：{{ client.prenom }} {{ client.nom }}</h1>
-        <h1>邮件地址：{{ client.username }}</h1>
-    {% endif %}
+    <div class="container" style="margin-top: 20px">
+        <h1>用户信息</h1>
+        <div class="col-lg-6 col-lg-offset-2 text-center">
+            <table class="table table-bordered table-sm table-inverse">
+                <tbody>
+                <tr>
+                    <td>用户名</td>
+                    <td>{{ client.pseudo }}</td>
+                </tr>
+                {% if client.pseudo == username %}
+                    <tr>
+                        <td>真名</td>
+                        <td>{{ client.prenom }} {{ client.nom }}</td>
+                    </tr>
+                    <tr>
+                        <td>邮件地址</td>
+                        <td>{{ client.username }}</td>
+                    </tr>
+                {% endif %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
 {% endblock %}

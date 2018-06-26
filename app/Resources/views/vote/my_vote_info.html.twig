@@ -4,19 +4,43 @@
 
 {% block body %}
     {{ parent() }}
-    <h1>显示可以查看结果的投票列表（参与过的）</h1>
-    {% if votes is null %}
-        <h1>你还没有参与过投票，请先投票</h1>
-    {% endif %}
-    {% if votes is not null %}
-        {% for vote in votes %}
-            <a href="{{ path('one_my_vote',{'vid':vote.id}) }}">
-                <div style="background: #efefef">
-                    <div>ID : {{ vote.id }}</div><br>
-                    <div>Title : {{ vote.title }}</div><br>
-                    <div>Description : {{ vote.description }}</div>
-                </div>
-            </a>
-        {% endfor %}
-    {% endif %}
+    <div class="container">
+        <div class="col-lg-12">
+            <h1>显示你创建的投票列表</h1>
+            {% if myVotes is null %}
+                <h2>你还没有创建过投票</h2>
+            {% endif %}
+            {% if myVotes is not null %}
+                {% for myVote in myVotes %}
+                    <a href="{{ path('one_my_vote',{'vid':myVote.vote.id}) }}">
+                        <div class="col-lg-8 col-lg-offset-2" style="background: #efefef; margin: 10px">
+                            <div>
+                                <h2>{{ myVote.vote.title }}</h2>
+                            </div><br>
+                            <div><h4>{{ myVote.vote.description }}</h4></div>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col-lg-12">
+            <h1>显示你参与的投票列表</h1>
+            {% if otherVotes is null %}
+                <h2>你还没有参与过投票</h2>
+            {% endif %}
+            {% if otherVotes is not null %}
+                {% for otherVote in otherVotes %}
+                    <a href="{{ path('one_my_vote',{'vid':otherVote.vote.id}) }}">
+                        <div class="col-lg-8 col-lg-offset-2" style="background: #efefef; margin: 10px">
+                            <div><h2>{{ otherVote.vote.title }}</h2></div><br>
+                            <div><h4>{{ otherVote.vote.description }}</h4></div>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+
 {% endblock %}

@@ -22,7 +22,7 @@ class VoteCreateType extends AbstractType
             ->add('introduction',
                 EntityType::class,array(
                     'class'         => 'AppBundle:Candidature',
-                    'choice_label'  => 'introduction',
+                    'choice_label'  => 'title',
                     'label'         => 'Film',
                     'mapped'        => false,
                     'expanded'      => true,

@@ -4,14 +4,17 @@
 
 {% block body %}
     {{ parent() }}
-    <h1>显示投票列表</h1>
-    {% for vote in votes %}
-        <a href="{{ path('one_vote',{'vid':vote.id}) }}">
-            <div style="background: #efefef">
-                <div>ID : {{ vote.id }}</div><br>
-                <div>Title : {{ vote.title }}</div><br>
-                <div>Description : {{ vote.description }}</div>
-            </div>
-        </a>
-    {% endfor %}
+    <div class="container">
+        <h1>显示投票列表</h1>
+        {% for vote in votes %}
+            <a href="{{ path('one_vote',{'vid':vote.id}) }}">
+                <div style="background: #efefef">
+                    <div class="col-lg-8 col-lg-offset-2" style="background: #efefef; margin: 10px">
+                        <div><h2>{{ vote.title }}</h2></div><br>
+                        <div><h4>{{ vote.description }}</h4></div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}

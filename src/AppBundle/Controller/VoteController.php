@@ -120,6 +120,7 @@ class VoteController extends Controller
         $isParticipantYet = $em->getRepository('AppBundle:ClientVote')
             ->findOneBy(
                 array(
+                    'vote'      => $vote,
                     'client'    => $user,
                     'isParticipant' => true,
                 )
@@ -255,17 +256,24 @@ class VoteController extends Controller
             $userPseudo = $user->getPseudo();
         }
         $em = $this->get('doctrine')->getManager();
-        $votes = $em->getRepository('AppBundle:ClientVote')->findByClient($user);
+        $myVotes = $em->getRepository('AppBundle:ClientVote')->findBy(
+            array(
+                'client'    => $user,
+                'isCreator' => true,
+            )
+        );
 
-        if ($votes != null) {
-            foreach ($votes as $key => $vote) {
-                $exactVotes[$key] = $vote->getVote();
-            }
-        }
+        $otherVotes = $em->getRepository('AppBundle:ClientVote')->findBy(
+            array(
+                'client'    => $user,
+                'isParticipant' => true,
+            )
+        );
 
         return $this->render('vote/my_vote_info.html.twig', array(
             'username'  => $userPseudo,
-            'votes'     => $exactVotes,
+            'myVotes'     => $myVotes,
+            'otherVotes'  => $otherVotes
 
         ));
     }
@@ -284,7 +292,15 @@ class VoteController extends Controller
         }
         $em = $this->get('doctrine')->getManager();
         $vote = $em->getRepository('AppBundle:Vote')->findOneById($vid);
-        $statisticVotes = $em->getRepository('AppBundle:VoteCandidature')->findByVote($vid);
+        $statisticVotes = $em->createQuery(
+            "SELECT 
+                s
+             FROM AppBundle:VoteCandidature s 
+             WHERE s.vote = :vote
+             ORDER BY s.noteAvg DESC"
+        )->setParameter('vote',$vote)
+        ->getResult();
+        //$statisticVotes = $em->getRepository('AppBundle:VoteCandidature')->findByVote($vid);
 
 
         return $this->render('vote/one_my_vote.html.twig', array(

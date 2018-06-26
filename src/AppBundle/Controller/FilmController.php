@@ -23,10 +23,29 @@ class FilmController extends Controller
         $em = $this->get('doctrine')->getManager();
         $candidatures = $em->getRepository('AppBundle:Candidature')->findAll();
 
+        $allFilms = $em->createQuery(
+            "SELECT 
+                f
+             FROM AppBundle:CandidatureNote f 
+             ORDER BY f.noteAvg DESC "
+        )->getResult();
+        $bestFilms = array();
+
+        if (sizeof($allFilms) >=3) {
+            for($i=0;$i<3;$i++){
+                $bestFilms[] = $allFilms[$i];
+            }
+        } else {
+            for($i=0;$i<sizeof($allFilms);$i++){
+                $bestFilms[] = $allFilms[$i];
+            }
+        }
+
 
         return $this->render('film/show_film.html.twig', array(
             'candidatures'  => $candidatures,
             'username'      => $userPseudo,
+            'bestFilms'      => $bestFilms
         ));
     }
     /**

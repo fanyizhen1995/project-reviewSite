@@ -1,29 +1,29 @@
 {% extends "base.html.twig" %}
 
+
 {% block title %}AppBundle:one:vote{% endblock %}
 
 {% block body %}
     {{ parent() }}
+    <div class="container">
 
-    <h1>显示单个投票</h1>
-    <h1>投票名称 : {{ vote.title }}</h1>
-    <h2>投票描述 ： {{ vote.description }}</h2>
-    <p>参选选手 ：</p><br />
-    <form method="post" role="form" class="form-horizontal">
-        {% for candidature in candidatures %}
-            <div style="font-size: 20px">
-                {{ candidature.title }}
-                {{ candidature.introduction }}
-            </div>
-            <div class="note">
-                <select class="form-control" name="select[]">
-                    {% for i in range(1,5) %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        {% endfor %}
-        <input name="submitNote" type="submit" class="form-control" value="Submit"/>
-        <!--<input name="submitNote" type="submit" class="btn btn-default" onclick="location.href='{{ path('one_vote',{'vid':vote.id}) }}'"> -->
-    </form>
+        <h1>显示单个投票</h1>
+        <h1>投票名称 : {{ vote.title }}</h1>
+        <h2>投票描述 ： {{ vote.description }}</h2>
+        <form method="post" role="form" class="form-horizontal">
+            {% for candidature in candidatures %}
+                <div class="col-lg-6" style="font-size: 20px">
+                    {{ candidature.title }}
+                </div>
+                <div class="col-lg-6 note" style="margin: 10px">
+                    <select class="col-lg-8 form-control" name="select[]">
+                        {% for i in range(1,5) %}
+                            <option class="col-lg-6" value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endfor %}
+            <input style="margin-top:10px; margin-bottom: 50px;" name="submitNote" type="submit" class="btn btn-lg btn-success btn-block form-control" value="Submit"/>
+        </form>
+    </div>
 {% endblock %}

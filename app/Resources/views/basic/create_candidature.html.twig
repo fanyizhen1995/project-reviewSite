@@ -6,10 +6,15 @@
 
 {% block body %}
     {{ parent() }}
-    <h1>创建电影</h1>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <div class="container">
+        <div class="col-lg-8 col-lg-offset-2 text-center" style="font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; font-weight:400;">
+            <h1>创建电影</h1>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
 
 
 {% endblock %}

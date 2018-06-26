@@ -4,13 +4,14 @@
 
 {% block body %}
     {{ parent() }}
-    {% for client in clients %}
-        <a href="{{ path('one_user_info',{'uid':client.id}) }}">
-            <div>
-                <h1>User : {{ client.pseudo }}</h1>
-            </div>
-        </a>
 
-
-    {% endfor %}
+    <div class="container" style="margin-top: 20px">
+        {% for client in clients %}
+            <a href="{{ path('one_user_info',{'uid':client.id}) }}">
+                <div>
+                    <h2>User : {{ client.pseudo }}</h2>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
