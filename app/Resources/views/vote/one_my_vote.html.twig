@@ -5,4 +5,18 @@
 {% block body %}
     {{ parent() }}
     <h1>显示单个投票的具体信息</h1>
+    <h1>{{ vote.title }}</h1>
+    <h2>{{ vote.description }}</h2>
+    {% for statistic in statistics %}
+        <div>
+            <div>{{ statistic.candidature.title }}</div>
+            <div>平均分 ： {{ statistic.noteAvg }}</div>
+            <div>5星 ：{{ statistic.noteNb5 }} 人</div>
+            <div>4星 ：{{ statistic.noteNb4 }} 人</div>
+            <div>3星 ：{{ statistic.noteNb3 }} 人</div>
+            <div>2星 ：{{ statistic.noteNb2 }} 人</div>
+            <div>1星 ：{{ statistic.noteNb1 }} 人</div>
+        </div>
+
+    {% endfor %}
 {% endblock %}

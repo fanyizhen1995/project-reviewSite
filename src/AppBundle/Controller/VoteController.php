@@ -273,7 +273,7 @@ class VoteController extends Controller
     /**
      * @Route("/myVoteList/{vid}", name="one_my_vote")
      */
-    public function showOneMyVoteAction()
+    public function showOneMyVoteAction($vid)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         if ($user == 'anon.') {
@@ -282,9 +282,15 @@ class VoteController extends Controller
         } else {
             $userPseudo = $user->getPseudo();
         }
+        $em = $this->get('doctrine')->getManager();
+        $vote = $em->getRepository('AppBundle:Vote')->findOneById($vid);
+        $statisticVotes = $em->getRepository('AppBundle:VoteCandidature')->findByVote($vid);
+
 
         return $this->render('vote/one_my_vote.html.twig', array(
-            'username'  => $userPseudo
+            'vote'          => $vote,
+            'statistics'    => $statisticVotes,
+            'username'      => $userPseudo
         ));
     }
 

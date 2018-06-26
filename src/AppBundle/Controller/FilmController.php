@@ -50,10 +50,12 @@ class FilmController extends Controller
                 'candidature'   => $film
             )
         );
+        $candidatureNote = $em->getRepository('AppBundle:CandidatureNote')->findOneByCandidature($film);
 
         return $this->render('film/one_film.html.twig', array(
             'images'    =>  $images,
             'film'  => $film,
+            'statistic' => $candidatureNote,
             'username'  => $userPseudo
         ));
     }
