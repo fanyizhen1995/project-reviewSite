@@ -7,9 +7,9 @@
     {{ parent() }}
     <div class="container">
 
-        <h1>显示单个投票</h1>
-        <h1>投票名称 : {{ vote.title }}</h1>
-        <h2>投票描述 ： {{ vote.description }}</h2>
+        <h1>Afficher un vote</h1>
+        <h1>Title du vote : {{ vote.title }}</h1>
+        <h2>Description ： {{ vote.description }}</h2>
         <form method="post" role="form" class="form-horizontal">
             {% for candidature in candidatures %}
                 <div class="col-lg-6" style="font-size: 20px">

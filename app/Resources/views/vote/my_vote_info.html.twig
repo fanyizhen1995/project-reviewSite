@@ -6,9 +6,9 @@
     {{ parent() }}
     <div class="container">
         <div class="col-lg-12">
-            <h1>显示你创建的投票列表</h1>
+            <h1>Afficher la liste de votes auxquels vous avez créé</h1>
             {% if myVotes is null %}
-                <h2>你还没有创建过投票</h2>
+                <h2>Vous n'avez pas créé de vote!</h2>
             {% endif %}
             {% if myVotes is not null %}
                 {% for myVote in myVotes %}
@@ -25,9 +25,9 @@
         </div>
 
         <div class="col-lg-12">
-            <h1>显示你参与的投票列表</h1>
+            <h1>Afficher la liste de votes auxquels vous avez participé</h1>
             {% if otherVotes is null %}
-                <h2>你还没有参与过投票</h2>
+                <h2>Vous n'avez pas voté!</h2>
             {% endif %}
             {% if otherVotes is not null %}
                 {% for otherVote in otherVotes %}

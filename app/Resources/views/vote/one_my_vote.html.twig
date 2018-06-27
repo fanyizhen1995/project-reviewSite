@@ -5,19 +5,19 @@
 {% block body %}
     {{ parent() }}
     <div class="container">
-        <h1>显示单个投票的具体信息</h1>
+        <h1>Afficher les détails d'un vote</h1>
         <h1>{{ vote.title }}</h1>
         <h2>{{ vote.description }}</h2>
-        <h3>总参与人数 ：{{ statistics[0].noteNumber }}</h3>
-        <h1>最好的电影：</h1>
+        <h3>Nombre total de participants ：{{ statistics[0].noteNumber }}</h3>
+        <h1>Le meilleur film：</h1>
         <div class="col-sm-4 col-sm-offset-4 text-center">
             <h1>{{ statistics[0].candidature.title }}</h1>
             <img class="col-lg-12" style="height: 100%; margin: 20px 0px" src="{{ asset('uploads/film_images/')}}{{ statistics[0].candidature.title }}/{{ statistics[0].candidature.title }}_Poster.jpg">
-            <h3>平均分 ：{{ statistics[0].noteAvg }}</h3>
+            <h3>Score moyen ：{{ statistics[0].noteAvg }}</h3>
         </div>
 
         <div class="col-sm-12">
-            <h1>具体分数</h1>
+            <h1>Score;</h1>
             {% for statistic in statistics %}
                 <div class="col-lg-12" style="margin: 30px">
                     <div class="col-lg-4">
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="col-lg-6" style="padding: 30px">
-                        <h3>平均分 ： {{ statistic.noteAvg }}</h3>
+                        <h3>Score moyen ： {{ statistic.noteAvg }}</h3>
                         <table class="table table-sm table-inverse">
                             <tbody>
                             <tr>
@@ -36,7 +36,7 @@
                                         <img src="{{ asset('star.jpg') }}">
                                     {% endfor %}
                                 </td>
-                                <td>{{ statistic.noteNb5 }} 人</td>
+                                <td>{{ statistic.noteNb5 }} personne</td>
                             </tr>
                             <tr>
                                 <td>
@@ -44,7 +44,7 @@
                                         <img src="{{ asset('star.jpg') }}">
                                     {% endfor %}
                                 </td>
-                                <td>{{ statistic.noteNb4 }} 人</td>
+                                <td>{{ statistic.noteNb4 }} personne</td>
                             </tr>
                             <tr>
                                 <td>
@@ -52,7 +52,7 @@
                                         <img src="{{ asset('star.jpg') }}">
                                     {% endfor %}
                                 </td>
-                                <td>{{ statistic.noteNb3 }} 人</td>
+                                <td>{{ statistic.noteNb3 }} personne</td>
                             </tr>
                             <tr>
                                 <td>
@@ -60,13 +60,13 @@
                                         <img src="{{ asset('star.jpg') }}">
                                     {% endfor %}
                                 </td>
-                                <td>{{ statistic.noteNb2 }} 人</td>
+                                <td>{{ statistic.noteNb2 }} personne</td>
                             </tr>
                             <tr>
                                 <td>
                                     <img src="{{ asset('star.jpg') }}">
                                 </td>
-                                <td>{{ statistic.noteNb1 }} 人</td>
+                                <td>{{ statistic.noteNb1 }} personne</td>
                             </tr>
                             </tbody>
                         </table>

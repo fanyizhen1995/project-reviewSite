@@ -5,7 +5,7 @@
 {% block body %}
     {{ parent() }}
     <div class="container">
-        <h1>显示投票列表</h1>
+        <h1>Afficher la liste du vote</h1>
         {% for vote in votes %}
             <a href="{{ path('one_vote',{'vid':vote.id}) }}">
                 <div style="background: #efefef">
